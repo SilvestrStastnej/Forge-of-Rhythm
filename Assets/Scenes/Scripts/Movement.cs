@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private bool isMoving = false;
     private bool isRotating = false;
 
-    IEnumerator SmoothRotace(float angle)
+    IEnumerator SmoothRotation(float angle)
     {
         isRotating = true;
         float elapsed = 0f;
@@ -53,7 +53,7 @@ public class Movement : MonoBehaviour
 
             elapsed += Time.deltaTime;
 
-            Rbody.MovePosition(Vector3.Slerp(startPosition, endPosition, t));
+            Rbody.MovePosition(Vector3.Lerp(startPosition, endPosition, t));
 
             yield return null;
         }
@@ -72,9 +72,9 @@ public class Movement : MonoBehaviour
         if (!isRotating && !isMoving)
         {
             if (Input.GetKeyDown(KeyCode.A))
-                StartCoroutine(SmoothRotace(-90));
+                StartCoroutine(SmoothRotation(-90));
             if (Input.GetKeyDown(KeyCode.D))
-                StartCoroutine(SmoothRotace(90));
+                StartCoroutine(SmoothRotation(90));
 
 
             if (!CheckPredeMnou())
