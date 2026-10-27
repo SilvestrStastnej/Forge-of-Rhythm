@@ -123,7 +123,7 @@ public class Movement : MonoBehaviour
             StartCoroutine(SmoothLook());
     }
 
-bool CheckPredeMnou()
+private bool CheckPredeMnou()
 {
     return Physics.Raycast(
         Raycaster.position,
@@ -135,7 +135,7 @@ bool CheckPredeMnou()
     ) && hit.collider.isTrigger;
 }
 
-bool CheckZaMnou()
+private bool CheckZaMnou()
 {
     return Physics.Raycast(
         Raycaster.position,

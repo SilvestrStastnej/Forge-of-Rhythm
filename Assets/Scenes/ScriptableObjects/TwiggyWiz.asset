@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2325b60dca9b15943a2e801e405cc980, type: 3}
+  m_Name: TwiggyWiz
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterTypeName: TwiggyWiz
+  item: {fileID: 0}
+  model2D: {fileID: -3105852924881301180, guid: da17d49c4809728419f0dee96f3d7ffd, type: 3}
