@@ -8,26 +8,34 @@ public class CharManager : MonoBehaviour
     public static event Action<bool> OnStart;
     public static event Action<bool> OnEnd;
 
+    public static event Action OrderStart;
+
+
+    private bool ReachedPosition = false;
+    public bool IsInProgress = false;
+
     [SerializeField] private Transform CharacterPoint;
     [SerializeField] private Transform CharacterPoint2;
     [SerializeField] private Transform CharacterSpawn;
     [SerializeField] private List<GameObject> CharPrefabs;
-    
+
+    private Controlz controlz;
     private GameObject newFab;
 
     private void Start()
     {
+        controlz = FindAnyObjectByType<Controlz>();
         StartCoroutine(SmoothCharStart());
     }
 
     private void Update()
     {
+        if(ReachedPosition)
         Rozhodnuti();
     }
 
     IEnumerator SmoothCharStart()
-    {
-        
+    {   
         newFab = Instantiate(CharPrefabs[UnityEngine.Random.Range(0, CharPrefabs.Count)]);
         newFab.transform.position = CharacterSpawn.transform.position;
 
@@ -47,14 +55,15 @@ public class CharManager : MonoBehaviour
             yield return null;
         }
         newFab.transform.position = endPosition;
+            ReachedPosition = true;
         OnStart?.Invoke(true);
     }
 
     private void Rozhodnuti()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-            
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && IsInProgress == false && controlz.YouGood == true) //Prijmout objednavku
+            OrderStart?.Invoke();
+        if (Input.GetKeyDown(KeyCode.Alpha2) && IsInProgress == false && controlz.YouGood == true) //Odmitnoutijmout objednavku
             StartCoroutine(SmoothCharEnd());
     }
 
@@ -82,5 +91,6 @@ public class CharManager : MonoBehaviour
         newFab.transform.position = endPosition;
         Destroy(newFab);
         StartCoroutine(SmoothCharStart());
+        ReachedPosition = false;
     }
 }

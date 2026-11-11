@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class Movement : MonoBehaviour
+public class Controls : MonoBehaviour
 {
     [SerializeField] private float stepDistance = 4.71f;
     [SerializeField] private float stepDuration = 0.08f;
@@ -96,6 +96,8 @@ public class Movement : MonoBehaviour
         Rbody = GetComponent<Rigidbody>();
         Tbody = GetComponent<Transform>();
         cam = GetComponentInChildren<Camera>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -122,6 +124,16 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && !isRotating && !isMoving)
             StartCoroutine(SmoothLook());
     }
+
+private bool CheckKovadlina()
+{
+    return Physics.Raycast(
+        cam.transform.position,
+        cam.transform.forward,
+        out RaycastHit hit,
+        5f,
+        obstacleLayer);
+}
 
 private bool CheckPredeMnou()
 {
