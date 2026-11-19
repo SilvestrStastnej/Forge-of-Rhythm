@@ -20,7 +20,7 @@ public class CharManager : MonoBehaviour
     [SerializeField] private List<GameObject> CharPrefabs;
 
     private Controlz controlz;
-    private GameObject newFab;
+    public GameObject newFab;
 
     private void Start()
     {

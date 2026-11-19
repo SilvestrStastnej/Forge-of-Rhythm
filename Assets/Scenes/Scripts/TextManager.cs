@@ -31,7 +31,7 @@ public class TextManager : MonoBehaviour
         {
             if (quotes.Count > 0)
             {
-                int randomIndex = Random.Range(0, 1);
+                int randomIndex = Random.Range(0, 2);
                 return quotes[randomIndex];
             }
         }

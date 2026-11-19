@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TwiggyWiz
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterTypeName: TwiggyWiz
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 58bea1b9c06a9664096a535dcd02e72a, type: 2}
   model2D: {fileID: -3105852924881301180, guid: da17d49c4809728419f0dee96f3d7ffd, type: 3}

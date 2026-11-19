@@ -6,7 +6,7 @@ using UnityEngine.U2D;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected CharacterData CharData;
+    [SerializeField] public CharacterData CharData;
     private SpriteRenderer SpriteRen;
     protected TextManager TextMan;
 

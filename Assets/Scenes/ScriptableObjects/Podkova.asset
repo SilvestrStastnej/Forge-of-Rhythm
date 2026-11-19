@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93685b6e8c2c7134a8ca9b375c839264, type: 3}
   m_Name: Podkova
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  name: 
-  model: {fileID: 0}
-  songTitle: 
-  artist: 
-  audioClip: {fileID: 0}
-  approachRate: 0
-  hitObjects: []
+  model: {fileID: 3828271463440794087, guid: 53a0c31150734984a8adc88b84ed3d15, type: 3}
+  songs:
+  - {fileID: 11400000, guid: 30080f2d69e0e004c8fb1f741035042f, type: 2}
