@@ -16,6 +16,11 @@ public class OrderManager : MonoBehaviour
         CharManager.OrderStart += OrderStart;
     }
 
+    private void OnDisable()
+    {
+        CharManager.OrderStart -= OrderStart;
+    }
+
     private void OrderStart()
     {
         charManager.IsInProgress = true;

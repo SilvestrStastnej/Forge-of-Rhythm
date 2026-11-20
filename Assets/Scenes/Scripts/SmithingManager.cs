@@ -1,11 +1,15 @@
 using NUnit.Framework.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static Song;
 
 public class SmithingManager : MonoBehaviour
 {
+    public static event Action SmithEnd;
+
     public Camera cam1;
     public Camera cam2;
     public HitCircle HCprefab;
@@ -16,11 +20,17 @@ public class SmithingManager : MonoBehaviour
     private double StartDspTime;
     private double SongPosition;
     private bool SongInSession = false;
+    [SerializeField] private TextMeshProUGUI Vyhodnoceni;
     private List<Song.HitObjectData> Pouzite = new List<Song.HitObjectData>();
 
     private void OnEnable()
     {
         Controlz.SmithStart += SmithSeqStart;
+    }
+
+    private void OnDisable()
+    {
+        Controlz.SmithStart -= SmithSeqStart;
     }
 
     private void Update()
@@ -36,11 +46,30 @@ public class SmithingManager : MonoBehaviour
 
             if (SongPosition >= spawnTime && !Pouzite.Contains(SongInUse.hitObjects[i]))
             {
-                Debug.Log(spawnTime);
                 Pouzite.Add(SongInUse.hitObjects[i]);
                 SpawnHC(SongInUse.hitObjects[i]);
             }
         }
+        if (Pouzite.Count == SongInUse.hitObjects.Count && SongInSession)
+        {
+            SongInSession = false;
+            StartCoroutine(Cakaj());
+        }
+    }
+
+    IEnumerator Cakaj()
+    {
+        yield return new WaitForSeconds(1f);
+        Vyhodnoceni.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        Pouzite.Clear();
+        cam1.gameObject.SetActive(true);
+        cam2.gameObject.SetActive(false);
+        AuSource.Stop();
+        SmithEnd?.Invoke();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Vyhodnoceni.gameObject.SetActive(false);
     }
 
     private void SmithSeqStart()
@@ -57,7 +86,8 @@ public class SmithingManager : MonoBehaviour
         StartDspTime = (float)AudioSettings.dspTime;
         SongInSession = true;
 
-
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         cam1.gameObject.SetActive(false);
         cam2.gameObject.SetActive(true);
     }
@@ -66,7 +96,7 @@ public class SmithingManager : MonoBehaviour
     {
         HitCircle newHC = Instantiate(HCprefab, SpawnArea);
 
-        RectTransform rect = newHC.GetComponent<RectTransform>();
+        RectTransform rect = newHC.GetComponentInChildren<RectTransform>();
 
         rect.anchorMin = new Vector2(0.5f, 0.5f);
         rect.anchorMax = new Vector2(0.5f, 0.5f);

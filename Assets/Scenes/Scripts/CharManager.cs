@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharManager : MonoBehaviour
@@ -22,6 +23,26 @@ public class CharManager : MonoBehaviour
     private Controlz controlz;
     public GameObject newFab;
 
+
+    private void OnEnable()
+    {
+        SmithingManager.SmithEnd -= OnSmithingComplete;
+        SmithingManager.SmithEnd += OnSmithingComplete;
+    }
+
+    private void OnDisable()
+    {
+        SmithingManager.SmithEnd -= OnSmithingComplete;
+    }
+
+    private void OnSmithingComplete()
+    {
+        if (IsInProgress)
+        {
+            IsInProgress = false;
+            StartCoroutine(SmoothCharEnd());
+        }
+    }
     private void Start()
     {
         controlz = FindAnyObjectByType<Controlz>();

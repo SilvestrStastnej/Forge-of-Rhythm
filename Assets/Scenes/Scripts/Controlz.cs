@@ -31,6 +31,20 @@ public class Controlz : MonoBehaviour
     private bool isLooking = false;
     public bool YouGood = false;
 
+    private void OnEnable()
+    {
+        SmithingManager.SmithEnd += flip;
+    }
+    private void OnDisable()
+    {
+        SmithingManager.SmithEnd -= flip;
+    }
+
+    private void flip()
+    {
+        isInOrder = false;
+    }
+
     IEnumerator SmoothRotation(float angle)
     {
         isRotating = true;

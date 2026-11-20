@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Net.NetworkInformation;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -8,12 +9,14 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] public CharacterData CharData;
     private SpriteRenderer SpriteRen;
+    private TextMeshProUGUI text;
     protected TextManager TextMan;
 
     void Awake()
     {
         TextMan = FindAnyObjectByType<TextManager>();
         SpriteRen = GetComponent<SpriteRenderer>();
+        text = GetComponentInChildren<TextMeshProUGUI>();
         SpriteRen.sprite = CharData.model2D;
     }
 
@@ -31,10 +34,11 @@ public abstract class Character : MonoBehaviour
 
     protected void Speak(bool Start)
     {
-        if (Start)  
-            Debug.Log(TextMan.GetRandomHelloQuote(CharData.characterTypeName));
+        if (Start)
+            text.text = TextMan.GetRandomHelloQuote(CharData.characterTypeName);
         else
-            Debug.Log(TextMan.GetRandomByeQuote(CharData.characterTypeName));
+            text.text = TextMan.GetRandomByeQuote(CharData.characterTypeName);
+        text.text += "\n1.\tprijmout\n2.\todmitnout";
 
     }
 }
