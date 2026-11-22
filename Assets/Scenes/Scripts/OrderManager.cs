@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
+    public static event Action OnOrderStart;
+
     CharManager charManager;
     Controlz controlz;
 
@@ -25,7 +28,6 @@ public class OrderManager : MonoBehaviour
     {
         charManager.IsInProgress = true;
         controlz.isInOrder = true;
-
-        Debug.Log("Konino");
+        OnOrderStart?.Invoke();
     }
 }

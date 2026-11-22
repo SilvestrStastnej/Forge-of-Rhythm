@@ -14,6 +14,7 @@ public class CharManager : MonoBehaviour
 
     private bool ReachedPosition = false;
     public bool IsInProgress = false;
+    public bool OrderFinished = false;
 
     [SerializeField] private Transform CharacterPoint;
     [SerializeField] private Transform CharacterPoint2;
@@ -37,11 +38,7 @@ public class CharManager : MonoBehaviour
 
     private void OnSmithingComplete()
     {
-        if (IsInProgress)
-        {
-            IsInProgress = false;
-            StartCoroutine(SmoothCharEnd());
-        }
+            OrderFinished = true;
     }
     private void Start()
     {
@@ -82,14 +79,27 @@ public class CharManager : MonoBehaviour
 
     private void Rozhodnuti()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && IsInProgress == false && controlz.YouGood == true) //Prijmout objednavku
-            OrderStart?.Invoke();
-        if (Input.GetKeyDown(KeyCode.Alpha2) && IsInProgress == false && controlz.YouGood == true) //Odmitnoutijmout objednavku
+        if (!controlz.YouGood) return;
+
+        if (!IsInProgress)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) // přijmout objednávku
+                OrderStart?.Invoke();
+            else if (Input.GetKeyDown(KeyCode.Alpha2)) // odmítnout
+                StartCoroutine(SmoothCharEnd());
+        }
+        else if (OrderFinished && Input.GetKeyDown(KeyCode.Alpha1)) // předat hotovou věc
+        {
             StartCoroutine(SmoothCharEnd());
+        }
     }
 
     IEnumerator SmoothCharEnd()
     {
+
+        ReachedPosition = false;
+        IsInProgress = false;
+        OrderFinished = false;
 
         OnEnd?.Invoke(false);
         newFab.transform.position = CharacterPoint.transform.position;
@@ -99,6 +109,7 @@ public class CharManager : MonoBehaviour
 
         float elapsed = 0f;
 
+        yield return new WaitForSeconds(2f);
         while (elapsed < 0.7f)
         {
             float t = elapsed / 0.7f;
@@ -113,5 +124,6 @@ public class CharManager : MonoBehaviour
         Destroy(newFab);
         StartCoroutine(SmoothCharStart());
         ReachedPosition = false;
+        IsInProgress = false;
     }
 }
