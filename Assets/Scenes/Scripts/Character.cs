@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour
 
     private void MeziCas()
     {
-        text.text = "Čekám na dokončení mé objednávky.\n 1.Předat předmět a dokončit objednávku.";
+        text.text = "Čekám na dokončení mé objednávky.\n1.\tPředat předmět a dokončit objednávku.";
     }
 
     private void OnEnable()

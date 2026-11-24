@@ -17,22 +17,35 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: 8cc91485eb609ce4199fcd2a8c3791d3, type: 3}
   hitObjects:
   - timeInSong: 0
+    ApproachRate: 1
     position: {x: 0, y: 0}
   - timeInSong: 1
+    ApproachRate: 1
     position: {x: 100, y: 100}
   - timeInSong: 2
+    ApproachRate: 1
     position: {x: -100, y: 100}
   - timeInSong: 3
+    ApproachRate: 1
     position: {x: -100, y: -100}
   - timeInSong: 4
+    ApproachRate: 1
     position: {x: 100, y: -100}
   - timeInSong: 4
+    ApproachRate: 1
     position: {x: 150, y: -100}
   - timeInSong: 6
+    ApproachRate: 1
     position: {x: 150, y: -100}
   - timeInSong: 6.2
+    ApproachRate: 0.5
     position: {x: 160, y: -100}
   - timeInSong: 6.4
+    ApproachRate: 0.5
     position: {x: 170, y: -100}
   - timeInSong: 6.6
+    ApproachRate: 0.5
     position: {x: 180, y: -100}
+  - timeInSong: 7
+    ApproachRate: 2
+    position: {x: 0, y: 0}

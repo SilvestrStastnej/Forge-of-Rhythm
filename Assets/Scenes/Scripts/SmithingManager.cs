@@ -12,7 +12,7 @@ public class SmithingManager : MonoBehaviour
     public Camera cam1;
     public Camera cam2;
     public HitCircle HCprefab;
-    private Song SongInUse;
+    public Song SongInUse;
     private Character Chara;
     public AudioSource AuSource;
     public RectTransform SpawnArea;
@@ -58,7 +58,7 @@ public class SmithingManager : MonoBehaviour
 
     IEnumerator Cakaj()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(SongInUse.hitObjects[SongInUse.hitObjects.Count - 1].ApproachRate + 1f);
         Vyhodnoceni.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
         Pouzite.Clear();
@@ -94,6 +94,7 @@ public class SmithingManager : MonoBehaviour
     private void SpawnHC(Song.HitObjectData hit)
     {
         HitCircle newHC = Instantiate(HCprefab, SpawnArea);
+        newHC.Init(hit.ApproachRate);
 
         RectTransform rect = newHC.GetComponentInChildren<RectTransform>();
 

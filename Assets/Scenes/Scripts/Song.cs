@@ -13,6 +13,7 @@ public class Song : ScriptableObject
             Circle
         };
         public float timeInSong;
+        public float ApproachRate;
         public Vector2 position;
     }
 
